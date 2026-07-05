@@ -2,6 +2,16 @@
 <html lang="en-GB">
 
 <head>
+  <script>
+    (() => {
+      const savedTheme = localStorage.getItem("theme");
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+
+      document.documentElement.dataset.theme = savedTheme ?? systemTheme;
+    })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="src/style/style.css">
@@ -15,6 +25,25 @@
       <h1>E-Learning Uploader</h1>
     </div>
   </header>
+
+  <main>
+    <div class="container">
+      <section>
+        <h2>Training Certification Tool</h2>
+      </section>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="container grid col-300-fit">
+      <section class="grid gap-sm">
+        <h3>Theme</h3>
+        <p>Select your preferred theme</p>
+        <button type="button" class="btn" data-action="theme">Change Theme</button>
+      </section>
+    </div>
+  </footer>
 </body>
 
 </html>
