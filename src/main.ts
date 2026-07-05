@@ -1,7 +1,20 @@
 import * as theme from "./utilities/theme.ts";
 import { createSearchableSelect } from "./utilities/searchable-select.ts";
+import * as table from "./utilities/table.ts";
 import * as storage from "./data/storage.ts";
 import * as forms from "./data/form.ts";
+
+function renderTable() {
+  table.load({
+    container: "#table-container",
+    columns: {
+      email: "User",
+      trainingCode: "Training Code",
+      dateCertified: "Completion Date",
+    },
+    data: storage.getRows(),
+  });
+}
 
 function init(): void {
   theme.init();
@@ -18,6 +31,7 @@ function init(): void {
     displayKey: "name",
     valueKey: "email",
   });
+  renderTable();
 }
 
 document.addEventListener("click", (event: MouseEvent): void => {
@@ -42,6 +56,7 @@ document.addEventListener("submit", (event: SubmitEvent) => {
   switch (form.id) {
     case "preview-form":
       forms.preview(form);
+      renderTable();
       break;
   }
 });

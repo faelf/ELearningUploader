@@ -56,3 +56,8 @@ export function getUsers(): User[] {
 export function getTrainings(): Training[] {
   return trainings;
 }
+
+export function getRows(): CsvRow[] {
+  const savedRows = localStorage.getItem(KEYS.preview) || "[]";
+  return JSON.parse(savedRows);
+}

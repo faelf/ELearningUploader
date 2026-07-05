@@ -98,13 +98,13 @@ p { margin: 0; margin-block-end: var(--spacing-sm); letter-spacing: 0.06rem; }
   Button Styles
   ---------------------------------------------------
 */
-.btn {
+.btn-sm, .btn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-md);
   background: transparent;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--text);
   border-radius: var(--border-radius);
   cursor: pointer;
   color: var(--text);
@@ -130,6 +130,12 @@ p { margin: 0; margin-block-end: var(--spacing-sm); letter-spacing: 0.06rem; }
   filter: none;
 }
 
+.btn-sm {
+  block-size: 24px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--fs-sm);
+}
+
 .btn.primary {
   color: var(--text-on-colour);
   border: 1px solid var(--primary);
@@ -140,6 +146,32 @@ p { margin: 0; margin-block-end: var(--spacing-sm); letter-spacing: 0.06rem; }
   color: var(--text-on-colour);
   background: var(--primary);
   filter: brightness(1.3);
+}
+
+.btn-sm.red, .btn.red {
+  color: var(--text);
+  border: 1px solid var(--text);
+  background: transparent;
+}
+
+.btn-sm.red:not(:disabled):hover, .btn.red:not(:disabled):hover {
+  color: var(--text-on-colour);
+  border: 1px solid var(--red);
+  background: var(--red);
+  filter: none;
+}
+
+.btn-sm.yellow, .btn.yellow {
+  color: var(--text);
+  border: 1px solid var(--text);
+  background: transparent;
+  filter: none;
+}
+
+.btn-sm.yellow:hover, .btn.yellow:hover {
+  color: var(--text-on-colour);
+  border: 1px solid var(--yellow);
+  background: var(--yellow);
 }
 
 /*
@@ -255,6 +287,9 @@ input:-webkit-autofill:active {
 }
 
 .select-option {
+  min-block-size: 38px;
+  display: flex;
+  align-items: center;
   padding: var(--spacing-sm);
   cursor: pointer;
 }
@@ -262,6 +297,52 @@ input:-webkit-autofill:active {
 .select-option:hover,
 .select-option.active {
   background: var(--bg-body);
+}
+
+/*
+  Table
+  ---------------------------------------------------
+*/
+table {
+  background: var(--bg-middle);
+  inline-size: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--border-radius);
+  overflow: clip;
+  text-align: left;
+}
+
+th {
+  background: var(--bg-surface);
+  padding: 0.75rem var(--spacing-md);
+  color: var(--heading);
+  font-weight: 600;
+}
+
+td { padding: var(--spacing-sm) var(--spacing-md); }
+tr:nth-child(even) { background: var(--bg-surface); }
+tr:hover { background: var(--bg-body); }
+
+.preview-table th:nth-child(1) { inline-size: auto; }
+.preview-table th:nth-child(2) { inline-size: 15ch; }
+.preview-table th:nth-child(3) { inline-size: 20ch; }
+.preview-table th:nth-child(4) { inline-size: 15ch; }
+
+/*
+  Table Empty State
+  ---------------------------------------------------
+*/
+.empty-state {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  color: var(--text-muted);
+  font-size: var(--fs-xl);
+  text-align: center;
 }
 
 /*
@@ -276,3 +357,44 @@ input:-webkit-autofill:active {
 .mb-none { margin-block-end: 0; }
 .mb-sm { margin-block-end: var(--spacing-sm); }
 .mb-md { margin-block-end: var(--spacing-md); }
+
+/*
+  Media Queries
+  ---------------------------------------------------
+*/
+@media (max-width: 700px) {
+  thead {
+    display: none;
+  }
+
+  tr {
+    display: block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  td {
+    display: grid;
+    grid-template-columns: 15ch 1fr;
+    padding: var(--spacing-xs);
+  }
+
+  td::before {
+    font-weight: 700;
+  }
+
+  td:nth-of-type(1)::before {
+    content: "User ID";
+  }
+
+  td:nth-of-type(2)::before {
+    content: "Training ID";
+  }
+
+  td:nth-of-type(3)::before {
+    content: "Completion Date";
+  }
+
+  td:nth-of-type(4)::before {
+    content: "Delete";
+  }
+}
