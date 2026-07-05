@@ -79,3 +79,8 @@ export function deleteRow(deleteBtn: HTMLElement): void {
   rows.splice(index, 1);
   localStorage.setItem(KEYS.preview, JSON.stringify(rows));
 }
+
+export function clearPreview(): void {
+  if (!confirm("Are you sure you want to clear all preview data?")) return;
+  localStorage.removeItem(KEYS.preview);
+}

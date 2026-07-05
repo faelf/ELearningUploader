@@ -58,14 +58,24 @@
       </form>
 
       <h3 class="mb-md">Uploader Preview</h3>
-      <div id="table-container" class="mb-md">
+      <div id="table-container" class="mb-md preview-table">
         <!-- JS -->
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container grid col-300-fit">
+    <div class="container grid col-300-fit gap-md items-start">
+      <section class="grid gap-sm">
+        <h3>Preview Data</h3>
+        <form id="preview-data" class="grid gap-sm">
+          <p class="mb-0">Review the entries above before downloading the CSV file for upload.</p>
+          <div class="grid gap-sm">
+            <button type="button" class="btn primary" data-action="download-csv">Download CSV</button>
+            <button type="button" class="btn red" data-action="clear-data">Clear Data</button>
+          </div>
+        </form>
+      </section>
       <section class="grid gap-sm">
         <h3>Theme</h3>
         <p>Select your preferred theme</p>

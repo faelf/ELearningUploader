@@ -3,6 +3,7 @@ import { createSearchableSelect } from "./utilities/searchable-select.ts";
 import * as table from "./utilities/table.ts";
 import * as storage from "./data/storage.ts";
 import * as forms from "./data/form.ts";
+import { downloadCsv } from "./data/csv.ts";
 
 function renderTable() {
   table.load({
@@ -47,6 +48,20 @@ document.addEventListener("click", (event: MouseEvent): void => {
     case "delete-row":
       storage.deleteRow(action);
       renderTable();
+      break;
+    case "clear-data":
+      storage.clearPreview();
+      renderTable();
+      break;
+    case "download-csv":
+      downloadCsv({
+        columns: {
+          email: "username",
+          trainingCode: "certification1",
+          dateCertified: "certificationcertifytimecertified1",
+        },
+        data: storage.getRows(),
+      });
       break;
   }
 });
