@@ -26,13 +26,42 @@
     </div>
   </header>
 
-  <main>
-    <div class="container">
-      <section>
-        <h2>Training Certification Tool</h2>
-      </section>
-    </div>
+  <main class="container">
+    <section>
+      <h2 class="mb-md">Training Certification Tool</h2>
 
+      <p>Enter the employee ID, select the training, and set the completion date. Add entries to build a CSV for upload.</p>
+
+      <form id="preview-form" class="grid gap-sm mb-md">
+
+        <label id="input-users" class="searchable-select">
+          <input type="text" class="select-input icon-user" autocomplete="off" required placeholder="Search user ...">
+          <input type="hidden" name="email">
+          <div class="select-options">
+            <!-- JS -->
+          </div>
+        </label>
+
+
+        <label id="input-trainings" class="searchable-select">
+          <input type="text" class="select-input icon-training" autocomplete="off" placeholder="Search trainings ...">
+          <input type="hidden" name="training">
+          <div class="select-options">
+            <!-- JS -->
+          </div>
+        </label>
+
+        <input type="date" name="completion-date" required>
+
+        <button type="reset" class="btn yellow">Reset</button>
+        <button type="submit" class="btn primary">Add</button>
+      </form>
+
+      <h3 class="mb-md">Uploader Preview</h3>
+      <div id="table-container" class="mb-md">
+        <!-- JS -->
+      </div>
+    </section>
   </main>
 
   <footer>

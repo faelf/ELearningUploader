@@ -1,7 +1,23 @@
 import * as theme from "./utilities/theme.ts";
+import { createSearchableSelect } from "./utilities/searchable-select.ts";
+import * as storage from "./data/storage.ts";
+import * as forms from "./data/form.ts";
 
 function init(): void {
   theme.init();
+  createSearchableSelect({
+    container: "#input-trainings",
+    data: storage.getTrainings(),
+    displayKey: "name",
+    valueKey: "code",
+  });
+
+  createSearchableSelect({
+    container: "#input-users",
+    data: storage.getUsers(),
+    displayKey: "name",
+    valueKey: "email",
+  });
 }
 
 document.addEventListener("click", (event: MouseEvent): void => {
@@ -13,6 +29,19 @@ document.addEventListener("click", (event: MouseEvent): void => {
   switch (action.dataset.action) {
     case "theme":
       theme.click();
+      break;
+  }
+});
+
+document.addEventListener("submit", (event: SubmitEvent) => {
+  event.preventDefault();
+
+  const form = event.target as HTMLFormElement | null;
+  if (!form) return;
+
+  switch (form.id) {
+    case "preview-form":
+      forms.preview(form);
       break;
   }
 });
