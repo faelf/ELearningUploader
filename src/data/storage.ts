@@ -61,3 +61,21 @@ export function getRows(): CsvRow[] {
   const savedRows = localStorage.getItem(KEYS.preview) || "[]";
   return JSON.parse(savedRows);
 }
+
+export function deleteRow(deleteBtn: HTMLElement): void {
+  const tr = deleteBtn.closest("tr");
+  if (!tr) return;
+
+  // The parent of a <tr> is typically <tbody>
+  const tbody = tr.parentNode;
+  if (!tbody) return;
+
+  if (!confirm("Delete this row?")) return;
+
+  const index = Array.from(tbody.children).indexOf(tr);
+  if (index === -1) return;
+
+  const rows = getRows();
+  rows.splice(index, 1);
+  localStorage.setItem(KEYS.preview, JSON.stringify(rows));
+}

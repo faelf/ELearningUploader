@@ -44,6 +44,10 @@ document.addEventListener("click", (event: MouseEvent): void => {
     case "theme":
       theme.click();
       break;
+    case "delete-row":
+      storage.deleteRow(action);
+      renderTable();
+      break;
   }
 });
 
