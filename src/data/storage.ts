@@ -1,11 +1,3 @@
-const users: User[] = [
-  {
-    id: 1,
-    name: "Rafael Ferreira",
-    email: "rafael@example.com",
-  },
-];
-
 const trainings: Training[] = [
   {
     code: "T0001",
@@ -32,6 +24,8 @@ export interface CsvRow {
 }
 
 const KEYS = {
+  users: "learnspace-users",
+  trainings: "learnspace-trainings",
   preview: "learnspace-preview",
 } as const;
 
@@ -50,7 +44,14 @@ export function saveRow(row: CsvRow): void {
 }
 
 export function getUsers(): User[] {
-  return users;
+  const savedUsers = localStorage.getItem(KEYS.users) || "[]";
+  return JSON.parse(savedUsers);
+}
+
+export function saveUser(newUser: User): void {
+  const currentUsers = getUsers();
+  currentUsers.push(newUser);
+  localStorage.setItem(KEYS.users, JSON.stringify(currentUsers));
 }
 
 export function getTrainings(): Training[] {

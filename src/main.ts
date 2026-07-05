@@ -1,9 +1,13 @@
+import type { User } from "./data/storage.ts";
+import type { SearchableSelectInstance } from "./utilities/searchable-select.ts";
 import * as theme from "./utilities/theme.ts";
 import { createSearchableSelect } from "./utilities/searchable-select.ts";
 import * as table from "./utilities/table.ts";
 import * as storage from "./data/storage.ts";
 import * as forms from "./data/form.ts";
 import { downloadCsv } from "./data/csv.ts";
+
+let usersSelect: SearchableSelectInstance<User> | undefined = undefined;
 
 function renderTable() {
   table.load({
@@ -26,7 +30,7 @@ function init(): void {
     valueKey: "code",
   });
 
-  createSearchableSelect({
+  usersSelect = createSearchableSelect({
     container: "#input-users",
     data: storage.getUsers(),
     displayKey: "name",
@@ -72,10 +76,15 @@ document.addEventListener("submit", (event: SubmitEvent) => {
   const form = event.target as HTMLFormElement | null;
   if (!form) return;
 
+  console.log("submit fired, form id:", form.id);
   switch (form.id) {
     case "preview-form":
       forms.preview(form);
       renderTable();
+      break;
+    case "upload-user":
+      forms.uploadUser(form);
+      usersSelect?.updateData(storage.getUsers());
       break;
   }
 });

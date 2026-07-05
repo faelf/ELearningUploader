@@ -70,12 +70,23 @@
         <h3>Preview Data</h3>
         <form id="preview-data" class="grid gap-sm">
           <p class="mb-0">Review the entries above before downloading the CSV file for upload.</p>
-          <div class="grid gap-sm">
-            <button type="button" class="btn primary" data-action="download-csv">Download CSV</button>
-            <button type="button" class="btn red" data-action="clear-data">Clear Data</button>
-          </div>
+          <button type="button" class="btn primary" data-action="download-csv">Download CSV</button>
+          <button type="button" class="btn red" data-action="clear-data">Clear Data</button>
         </form>
       </section>
+
+      <section class="grid gap-sm">
+        <h3>User Management</h3>
+        <p>Upload a single user, or bulk upload users.</p>
+        <button class="btn primary" commandfor="manage-users" command="show-modal">Settings</button>
+      </section>
+
+      <section class="grid gap-sm">
+        <h3>Training Management</h3>
+        <p>Upload a single training, or bulk upload trainings.</p>
+        <button class="btn primary" commandfor="manage-trainings" command="show-modal" disabled>Settings</button>
+      </section>
+
       <section class="grid gap-sm">
         <h3>Theme</h3>
         <p>Select your preferred theme</p>
@@ -83,6 +94,58 @@
       </section>
     </div>
   </footer>
+
+  <dialog id="manage-users">
+    <header class="modal-header">
+      <h2>Manage Users</h2>
+      <button class="btn" type="button" commandfor="manage-users" command="close">Close</button>
+    </header>
+
+    <div class="modal-body grid gap-md mb-md">
+      <form id="upload-user" class="grid gap-sm">
+        <div>
+          <h3 class="mb-md">Add User</h3>
+        </div>
+        <label>
+          <span>ID</span>
+          <input type="text" name="user-id" placeholder="Enter user ID ...">
+        </label>
+        <label>
+          <span>Full Name</span>
+          <input type="text" name="full-name" placeholder="Enter user full name ...">
+        </label>
+        <label>
+          <span>E-Mail</span>
+          <input type="email" name="email" placeholder="Enter user e-mail ...">
+        </label>
+        <button type="submit" class="btn">Save</button>
+      </form>
+      <form id="upload-users" class="grid gap-sm">
+        <h3 class="mb-md">Upload Users</h3>
+        <p>Please make sure that it is a csv, and the columns are in this order, id, name, e-mail.</p>
+        <p>This will replace all entries in the system.</p>
+        <input type="file" name="file" accept=".csv">
+        <button type="submit" class="btn primary">Upload</button>
+      </form>
+    </div>
+  </dialog>
+
+  <dialog id="manage-trainings">
+    <div class="modal-header">
+      <h2>Manage Trainings</h2>
+      <button class="btn" type="button" commandfor="manage-trainings" command="close">Close</button>
+    </div>
+    <div class="modal-body">
+      <form id="training-upload" class="grid gap-md cols-2">
+        <h3>Upload Trainings</h3>
+        <label>Please make sure that it is a csv, and the columns are in this order, code, name</label>
+        <div class="grid gap-sm">
+          <input type="file" name="file" accept=".csv">
+          <button type="submit" class="btn primary">Upload</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
 </body>
 
 </html>

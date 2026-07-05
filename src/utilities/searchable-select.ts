@@ -1,8 +1,12 @@
-interface CreateSearchableSelectConfig<T> {
+export interface CreateSearchableSelectConfig<T> {
   container: string;
   data: T[];
   displayKey: keyof T;
   valueKey: keyof T;
+}
+
+export interface SearchableSelectInstance<T> {
+  updateData: (newData: T[]) => void;
 }
 
 export function createSearchableSelect<T extends Record<string, any>>({
@@ -10,9 +14,9 @@ export function createSearchableSelect<T extends Record<string, any>>({
   data,
   displayKey,
   valueKey,
-}: CreateSearchableSelectConfig<T>): void {
+}: CreateSearchableSelectConfig<T>): SearchableSelectInstance<T> | undefined {
   const containerEl = document.querySelector<HTMLElement>(container);
-  if (!containerEl) return;
+  if (!containerEl) return undefined;
 
   const searchInput =
     containerEl.querySelector<HTMLInputElement>(".select-input");
@@ -22,9 +26,10 @@ export function createSearchableSelect<T extends Record<string, any>>({
   const optionsContainer =
     containerEl.querySelector<HTMLDivElement>(".select-options");
 
-  if (!searchInput || !hiddenInput || !optionsContainer) return;
+  if (!searchInput || !hiddenInput || !optionsContainer) return undefined;
 
-  let filteredData: T[] = data;
+  let currentData: T[] = data;
+  let filteredData: T[] = currentData;
   let activeIndex = -1;
 
   const renderOptions = (items: T[]): void => {
@@ -98,7 +103,7 @@ export function createSearchableSelect<T extends Record<string, any>>({
 
     const matches =
       searchTerms.length > 0
-        ? data.filter((item) => {
+        ? currentData.filter((item) => {
             const displayValue = String(item[displayKey]).toLowerCase();
             const valueValue = String(item[valueKey]).toLowerCase();
 
@@ -108,13 +113,13 @@ export function createSearchableSelect<T extends Record<string, any>>({
 
             return matchInDisplay || valueValue.includes(query);
           })
-        : data;
+        : currentData;
 
     renderOptions(matches);
   });
 
   searchInput.addEventListener("focus", () => {
-    renderOptions(filteredData.length ? filteredData : data);
+    renderOptions(filteredData.length ? filteredData : currentData);
   });
 
   searchInput.addEventListener("keydown", (e: KeyboardEvent) => {
@@ -142,4 +147,11 @@ export function createSearchableSelect<T extends Record<string, any>>({
   });
 
   document.addEventListener("click", handleClick);
+
+  return {
+    updateData: (newData: T[]): void => {
+      currentData = newData;
+      filteredData = newData;
+    },
+  };
 }
