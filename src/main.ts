@@ -70,13 +70,12 @@ document.addEventListener("click", (event: MouseEvent): void => {
   }
 });
 
-document.addEventListener("submit", (event: SubmitEvent) => {
+document.addEventListener("submit", async (event: SubmitEvent) => {
   event.preventDefault();
 
   const form = event.target as HTMLFormElement | null;
   if (!form) return;
 
-  console.log("submit fired, form id:", form.id);
   switch (form.id) {
     case "preview-form":
       forms.preview(form);
@@ -84,6 +83,14 @@ document.addEventListener("submit", (event: SubmitEvent) => {
       break;
     case "upload-user":
       forms.uploadUser(form);
+      usersSelect?.updateData(storage.getUsers());
+      break;
+    case "upload-users":
+      forms.uploadusers(form);
+      usersSelect?.updateData(storage.getUsers());
+      break;
+    case "upload-users":
+      await forms.uploadusers(form);
       usersSelect?.updateData(storage.getUsers());
       break;
   }

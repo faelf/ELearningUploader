@@ -54,6 +54,16 @@ export function saveUser(newUser: User): void {
   localStorage.setItem(KEYS.users, JSON.stringify(currentUsers));
 }
 
+export function saveUsers(newUsers: User[]): void {
+  localStorage.setItem(KEYS.users, JSON.stringify(newUsers));
+}
+
+export function mergeUsers(newUsers: User[]): void {
+  const currentUsers = getUsers();
+  const updatedUsers = [...currentUsers, ...newUsers];
+  localStorage.setItem(KEYS.users, JSON.stringify(updatedUsers));
+}
+
 export function getTrainings(): Training[] {
   return trainings;
 }

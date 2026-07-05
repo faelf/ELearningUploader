@@ -1,4 +1,5 @@
 import * as storage from "./storage.ts";
+import { readUsersFromCsv } from "./csv.ts";
 import type { CsvRow } from "./storage.ts";
 
 export function preview(form: HTMLFormElement): void {
@@ -15,7 +16,6 @@ export function preview(form: HTMLFormElement): void {
 }
 
 export function uploadUser(form: HTMLFormElement): void {
-  console.log("clicked");
   const formData = new FormData(form);
 
   const id = String(formData.get("user-id") ?? "");
@@ -28,5 +28,22 @@ export function uploadUser(form: HTMLFormElement): void {
   }
 
   storage.saveUser({ id, name, email });
+  form.reset();
+}
+
+export async function uploadusers(form: HTMLFormElement): Promise<void> {
+  const fileInput = form.querySelector<HTMLInputElement>('input[name="file"]');
+  const file = fileInput?.files?.[0];
+
+  if (!file) {
+    alert("Please choose a CSV file first.");
+    return;
+  }
+
+  const newUsers = await readUsersFromCsv(file);
+
+  storage.saveUsers(newUsers);
+  window.alert("Users uploaded!");
+
   form.reset();
 }
