@@ -68,6 +68,10 @@ export function saveTraining(newTraining: Training): void {
   localStorage.setItem(KEYS.trainings, JSON.stringify(currentTrainings));
 }
 
+export function saveTrainings(newTrainings: Training[]): void {
+  localStorage.setItem(KEYS.trainings, JSON.stringify(newTrainings));
+}
+
 export function getRows(): CsvRow[] {
   const savedRows = localStorage.getItem(KEYS.preview) || "[]";
   return JSON.parse(savedRows);
@@ -77,7 +81,6 @@ export function deleteRow(deleteBtn: HTMLElement): void {
   const tr = deleteBtn.closest("tr");
   if (!tr) return;
 
-  // The parent of a <tr> is typically <tbody>
   const tbody = tr.parentNode;
   if (!tbody) return;
 

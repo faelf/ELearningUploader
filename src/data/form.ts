@@ -1,5 +1,5 @@
 import * as storage from "./storage.ts";
-import { readUsersFromCsv } from "./csv.ts";
+import { readUsersFromCsv, readTrainingsFromCsv } from "./csv.ts";
 import type { CsvRow } from "./storage.ts";
 
 export function preview(form: HTMLFormElement): void {
@@ -70,5 +70,18 @@ export function uploadTraining(form: HTMLFormElement): void {
 }
 
 export async function uploadTrainings(form: HTMLFormElement): Promise<void> {
-  console.log(form);
+  const fileInput = form.querySelector<HTMLInputElement>('input[name="file"]');
+  const file = fileInput?.files?.[0];
+
+  if (!file) {
+    alert("Please choose a CSV file first.");
+    return;
+  }
+
+  const newTrainings = await readTrainingsFromCsv(file);
+
+  storage.saveTrainings(newTrainings);
+  window.alert("Trainings uploaded!");
+
+  form.reset();
 }

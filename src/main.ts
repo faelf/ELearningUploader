@@ -88,10 +88,6 @@ document.addEventListener("submit", async (event: SubmitEvent) => {
       usersSelect?.updateData(storage.getUsers());
       break;
     case "upload-users":
-      forms.uploadusers(form);
-      usersSelect?.updateData(storage.getUsers());
-      break;
-    case "upload-users":
       await forms.uploadusers(form);
       usersSelect?.updateData(storage.getUsers());
       break;
@@ -100,7 +96,7 @@ document.addEventListener("submit", async (event: SubmitEvent) => {
       trainingsSelect?.updateData(storage.getTrainings());
       break;
     case "upload-trainings":
-      forms.uploadTrainings(form);
+      await forms.uploadTrainings(form);
       trainingsSelect?.updateData(storage.getTrainings());
       break;
   }

@@ -1,5 +1,4 @@
-import type { CsvRow } from "./storage.js";
-import type { User } from "./storage.ts";
+import type { CsvRow, User, Training } from "./storage.ts";
 
 interface CsvConfig {
   columns: Record<keyof Omit<CsvRow, "row">, string>;
@@ -57,11 +56,36 @@ export function downloadCsv({
   URL.revokeObjectURL(url);
 }
 
+function parseCsvLine(line: string): string[] {
+  const cells: string[] = [];
+  let current = "";
+  let insideQuotes = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+
+    if (char === '"') {
+      if (insideQuotes && line[i + 1] === '"') {
+        // Escaped quote ("" inside a quoted field) -> literal "
+        current += '"';
+        i++; // skip the second quote
+      } else {
+        insideQuotes = !insideQuotes;
+      }
+    } else if (char === "," && !insideQuotes) {
+      cells.push(current.trim());
+      current = "";
+    } else {
+      current += char;
+    }
+  }
+
+  cells.push(current.trim());
+  return cells;
+}
+
 export function parseCsv(text: string): string[][] {
-  return text
-    .trim()
-    .split(/\r?\n/)
-    .map((line) => line.split(",").map((cell) => cell.trim()));
+  return text.trim().split(/\r?\n/).map(parseCsvLine);
 }
 
 export function readCsvFile(file: File): Promise<string[][]> {
@@ -89,4 +113,26 @@ export function rowsToUsers(rows: string[][]): User[] {
 export async function readUsersFromCsv(file: File): Promise<User[]> {
   const rows = await readCsvFile(file);
   return rowsToUsers(rows);
+}
+
+export function rowsToTrainings(rows: string[][]): Training[] {
+  const dataRows = rows[0]?.[0]?.toLowerCase().includes("certification")
+    ? rows.slice(1)
+    : rows;
+
+  return dataRows
+    .filter((row) => row.length >= 2 && row.some((cell) => cell.length > 0))
+    .map((row) => {
+      const [name, code] = row;
+
+      return {
+        code,
+        name,
+      };
+    });
+}
+
+export async function readTrainingsFromCsv(file: File): Promise<Training[]> {
+  const rows = await readCsvFile(file);
+  return rowsToTrainings(rows);
 }
