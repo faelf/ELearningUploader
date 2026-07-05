@@ -28,7 +28,15 @@ export function uploadUser(form: HTMLFormElement): void {
   }
 
   storage.saveUser({ id, name, email });
+
   form.reset();
+
+  const dialog = form.closest<HTMLDialogElement>("dialog");
+  if (dialog) {
+    dialog.close();
+  }
+
+  window.alert("User uploaded!");
 }
 
 export async function uploadusers(form: HTMLFormElement): Promise<void> {
@@ -43,9 +51,15 @@ export async function uploadusers(form: HTMLFormElement): Promise<void> {
   const newUsers = await readUsersFromCsv(file);
 
   storage.saveUsers(newUsers);
-  window.alert("Users uploaded!");
 
   form.reset();
+
+  const dialog = form.closest<HTMLDialogElement>("dialog");
+  if (dialog) {
+    dialog.close();
+  }
+
+  window.alert("Users uploaded!");
 }
 
 export function uploadTraining(form: HTMLFormElement): void {
@@ -65,8 +79,15 @@ export function uploadTraining(form: HTMLFormElement): void {
   }
 
   storage.saveTraining({ code, name });
-  window.alert("Training uploaded!");
+
   form.reset();
+
+  const dialog = form.closest<HTMLDialogElement>("dialog");
+  if (dialog) {
+    dialog.close();
+  }
+
+  window.alert("Training uploaded!");
 }
 
 export async function uploadTrainings(form: HTMLFormElement): Promise<void> {
@@ -81,7 +102,13 @@ export async function uploadTrainings(form: HTMLFormElement): Promise<void> {
   const newTrainings = await readTrainingsFromCsv(file);
 
   storage.saveTrainings(newTrainings);
-  window.alert("Trainings uploaded!");
 
   form.reset();
+
+  const dialog = form.closest<HTMLDialogElement>("dialog");
+  if (dialog) {
+    dialog.close();
+  }
+
+  window.alert("Trainings uploaded!");
 }
