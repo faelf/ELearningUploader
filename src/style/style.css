@@ -82,6 +82,21 @@ footer {
 }
 
 /*
+  Preview Form
+  ---------------------------------------------------
+*/
+.preview-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.preview-form > * {
+  flex-grow: 1;
+  flex-basis: 250px;
+}
+
+/*
   Typography
   ---------------------------------------------------
 */
