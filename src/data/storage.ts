@@ -1,10 +1,3 @@
-const trainings: Training[] = [
-  {
-    code: "T0001",
-    name: "Example",
-  },
-];
-
 export interface User {
   id?: string | number;
   name: string;
@@ -65,7 +58,14 @@ export function mergeUsers(newUsers: User[]): void {
 }
 
 export function getTrainings(): Training[] {
-  return trainings;
+  const savedTrainings = localStorage.getItem(KEYS.trainings) || "[]";
+  return JSON.parse(savedTrainings);
+}
+
+export function saveTraining(newTraining: Training): void {
+  const currentTrainings = getTrainings();
+  currentTrainings.push(newTraining);
+  localStorage.setItem(KEYS.trainings, JSON.stringify(currentTrainings));
 }
 
 export function getRows(): CsvRow[] {

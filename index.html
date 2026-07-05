@@ -84,7 +84,7 @@
       <section class="grid gap-sm">
         <h3>Training Management</h3>
         <p>Upload a single training, or bulk upload trainings.</p>
-        <button class="btn primary" commandfor="manage-trainings" command="show-modal" disabled>Settings</button>
+        <button class="btn primary" commandfor="manage-trainings" command="show-modal">Settings</button>
       </section>
 
       <section class="grid gap-sm">
@@ -103,9 +103,7 @@
 
     <div class="modal-body grid gap-md mb-md">
       <form id="upload-user" class="grid gap-sm">
-        <div>
-          <h3 class="mb-md">Add User</h3>
-        </div>
+        <h3 class="mb-md">Add User</h3>
         <label>
           <span>ID</span>
           <input type="text" name="user-id" placeholder="Enter user ID ...">
@@ -135,14 +133,24 @@
       <h2>Manage Trainings</h2>
       <button class="btn" type="button" commandfor="manage-trainings" command="close">Close</button>
     </div>
-    <div class="modal-body">
-      <form id="training-upload" class="grid gap-md cols-2">
+    <div class="modal-body grid gap-md mb-md">
+      <form id="upload-training" class="grid gap-sm">
+        <h3 class="mb-md">Add Training</h3>
+        <label>
+          <span>Training Code</span>
+          <input type="text" name="training-code" placeholder="Enter training code ...">
+        </label>
+        <label>
+          <span>Training Name</span>
+          <input type="text" name="training-name" placeholder="Enter training name ...">
+        </label>
+        <button type="submit" class="btn">Save</button>
+      </form>
+      <form id="upload-trainings" class="grid gap-sm">
         <h3>Upload Trainings</h3>
         <label>Please make sure that it is a csv, and the columns are in this order, code, name</label>
-        <div class="grid gap-sm">
-          <input type="file" name="file" accept=".csv">
-          <button type="submit" class="btn primary">Upload</button>
-        </div>
+        <input type="file" name="file" accept=".csv">
+        <button type="submit" class="btn primary">Upload</button>
       </form>
     </div>
   </dialog>

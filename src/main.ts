@@ -1,4 +1,5 @@
 import type { User } from "./data/storage.ts";
+import type { Training } from "./data/storage.ts";
 import type { SearchableSelectInstance } from "./utilities/searchable-select.ts";
 import * as theme from "./utilities/theme.ts";
 import { createSearchableSelect } from "./utilities/searchable-select.ts";
@@ -8,6 +9,7 @@ import * as forms from "./data/form.ts";
 import { downloadCsv } from "./data/csv.ts";
 
 let usersSelect: SearchableSelectInstance<User> | undefined = undefined;
+let trainingsSelect: SearchableSelectInstance<Training> | undefined = undefined;
 
 function renderTable() {
   table.load({
@@ -23,7 +25,7 @@ function renderTable() {
 
 function init(): void {
   theme.init();
-  createSearchableSelect({
+  trainingsSelect = createSearchableSelect({
     container: "#input-trainings",
     data: storage.getTrainings(),
     displayKey: "name",
@@ -92,6 +94,14 @@ document.addEventListener("submit", async (event: SubmitEvent) => {
     case "upload-users":
       await forms.uploadusers(form);
       usersSelect?.updateData(storage.getUsers());
+      break;
+    case "upload-training":
+      forms.uploadTraining(form);
+      trainingsSelect?.updateData(storage.getTrainings());
+      break;
+    case "upload-trainings":
+      forms.uploadTrainings(form);
+      trainingsSelect?.updateData(storage.getTrainings());
       break;
   }
 });

@@ -47,3 +47,28 @@ export async function uploadusers(form: HTMLFormElement): Promise<void> {
 
   form.reset();
 }
+
+export function uploadTraining(form: HTMLFormElement): void {
+  const formData = new FormData(form);
+
+  const code = String(formData.get("training-code") ?? "");
+  const name = String(formData.get("training-name") ?? "");
+
+  if (!name) {
+    alert("Please provide a training name.");
+    return;
+  }
+
+  if (!code) {
+    alert("Please provide a training code.");
+    return;
+  }
+
+  storage.saveTraining({ code, name });
+  window.alert("Training uploaded!");
+  form.reset();
+}
+
+export async function uploadTrainings(form: HTMLFormElement): Promise<void> {
+  console.log(form);
+}
