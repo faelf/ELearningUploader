@@ -2,7 +2,8 @@
   --bg-body:          hsl(220 20% 95%);
   --bg-middle:        hsl(220 20% 90%);
   --bg-surface:       hsl(220 20% 85%);
-  --border-color:     hsl(227 12% 77%);
+  --border-color:     hsl(220 20% 80%);
+  --border-color-hl:  hsl(227 12% 10%);
   --text:             hsl(234 16% 35%);
   --heading:          hsl(231 19% 26%);
   --heading-accent:   hsl(231 19% 10%);
@@ -24,18 +25,20 @@
 }
 
 [data-theme="dark"] {
-  --bg-body:          hsl(240 21% 15%);
-  --bg-middle:        hsl(240 21% 18%);
-  --bg-surface:       hsl(237 16% 23%);
-  --border-color:     hsl(233 12% 39%);
-  --text:             hsl(227 70% 85%);
-  --heading:          hsl(227 70% 90%);
-  --heading-accent:   hsl(266 85% 70%);
-  --text-muted:       hsl(228 24% 72%);
-  --primary:          hsl(217 92% 76%);
-  --red:              hsl(343 81% 75%);
-  --yellow:           hsl(41 86% 83%);
-  --text-on-colour:   hsl(240 21% 15%);
+  --bg-body:          hsl(220 18% 13%);
+  --bg-middle:        hsl(215 16% 16%);
+  --bg-surface:       hsl(215 14% 20%);
+  --border-color:     hsl(215 13% 28%);
+  --border-color-hl:  hsl(215 15% 40%);
+  --text:             hsl(213 14% 83%);
+  --heading:          hsl(210 17% 95%);
+  --heading-accent:   hsl(212 92% 68%);
+  --text-muted:       hsl(215 10% 65%);
+  --text-on-colour:   hsl(220 18% 13%);
+  --primary:          hsl(212 92% 68%);
+  --red:              hsl(0 72% 67%);
+  --yellow:           hsl(42 93% 65%);
+  --green:            hsl(137 55% 55%);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -66,7 +69,7 @@ body {
   ---------------------------------------------------
 */
 .container {
-  max-inline-size: var(--page-max-width);
+  max-inline-size: min(100%, var(--page-max-width));
   margin-inline: auto;
   padding: var(--spacing-md);
 }
@@ -107,7 +110,7 @@ h3, .h3 { color: var(--heading);        font-size: 1.6rem; }
 h4, .h4 { color: var(--heading);        font-size: 1.4rem; }
 h5, .h5 { color: var(--text);           font-size: 1.2rem; }
 h6, .h6 { color: var(--text-muted);     font-size: 1rem; }
-p { margin: 0; margin-block-end: var(--spacing-sm); letter-spacing: 0.06rem; color: var(--text); }
+p { margin: 0; margin-block-end: var(--spacing-sm); letter-spacing: 0.05rem; color: var(--text); }
 
 /*
   Button Styles
@@ -119,13 +122,14 @@ p { margin: 0; margin-block-end: var(--spacing-sm); letter-spacing: 0.06rem; col
   justify-content: center;
   gap: var(--spacing-md);
   background: transparent;
-  border: 1px solid var(--text);
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   cursor: pointer;
   color: var(--text);
   font-family: inherit;
   font-weight: bold;
   transition: all 0.2s ease-in-out;
+  letter-spacing: 0.05rem;
 }
 
 .btn {
@@ -159,14 +163,7 @@ p { margin: 0; margin-block-end: var(--spacing-sm); letter-spacing: 0.06rem; col
 
 .btn:not(:disabled).primary:hover {
   color: var(--text-on-colour);
-  background: var(--primary);
-  filter: brightness(1.3);
-}
-
-.btn-sm.red, .btn.red {
-  color: var(--text);
-  border: 1px solid var(--text);
-  background: transparent;
+  background: color-mix(in hsl, var(--primary) 80%, #000);
 }
 
 .btn-sm.red:not(:disabled):hover, .btn.red:not(:disabled):hover {
@@ -176,17 +173,11 @@ p { margin: 0; margin-block-end: var(--spacing-sm); letter-spacing: 0.06rem; col
   filter: none;
 }
 
-.btn-sm.yellow, .btn.yellow {
-  color: var(--text);
-  border: 1px solid var(--text);
-  background: transparent;
-  filter: none;
-}
-
-.btn-sm.yellow:hover, .btn.yellow:hover {
+.btn-sm.yellow:not(:disabled):hover, .btn.yellow:not(:disabled):hover {
   color: var(--text-on-colour);
   border: 1px solid var(--yellow);
   background: var(--yellow);
+  filter: none;
 }
 
 /*
@@ -216,24 +207,19 @@ input[type="email"] {
   block-size: 38px;
   border-radius: var(--border-radius);
   padding: 0.75rem;
-  background: var(--bg-surface);
+  background: transparent;
   color: var(--text);
-  border: 1px solid transparent;
+  border: 1px solid var(--border-color);
   font-family: inherit;
   font-size: var(--fs-md);
   caret-color: var(--primary);
 }
 
-input:focus, button:focus {
-  outline: none;
-  border: 1px solid var(--border-color);
-  box-shadow: 0px 0px 0px 2px var(--border-color);
-}
-
+input:focus, button:focus,
 input:focus-visible, button:focus-visible {
   outline: none;
-  border: 1px solid var(--border-color);
-  box-shadow: 0px 0px 0px 2px var(--border-color);
+  border: 1px solid var(--border-color-hl);
+  box-shadow: 0px 0px 0px 3px var(--border-color);
 }
 
 input:disabled, button:disabled {
@@ -263,7 +249,8 @@ input[type="date"]::-webkit-datetime-edit-text,
 input[type="date"]::-webkit-datetime-edit-month-field,
 input[type="date"]::-webkit-datetime-edit-day-field,
 input[type="date"]::-webkit-datetime-edit-year-field {
-  color: var(--text);
+  color: var(--text-muted);
+  letter-spacing: 0.05rem;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -315,7 +302,7 @@ input[type="file"]::file-selector-button {
 }
 
 input[type="file"]:hover::file-selector-button {
-  filter: brightness(1.3);
+  background: color-mix(in hsl, var(--bg-surface) 80%, #000);
 }
 
 /*
