@@ -26,7 +26,7 @@
 </head>
 
 <body>
-  <header>
+  <header class="bg-middle border-bottom">
     <div class="container">
       <h1>E-Learning Uploader</h1>
     </div>
@@ -40,27 +40,31 @@
 
       <form id="preview-form" class="preview-form mb-md">
 
-        <div id="input-users" class="searchable-select">
-          <input type="text" class="select-input icon-user" autocomplete="off" required placeholder="Search user ...">
+        <div id="input-users" class="searchable-select input-icon">
+          <i class="icon icon-user"></i>
+          <input type="text" class="select-input" autocomplete="off" required placeholder="Search user ...">
           <input type="hidden" name="email">
           <div class="select-options">
             <!-- JS -->
           </div>
         </div>
 
-
-        <div id="input-trainings" class="searchable-select">
-          <input type="text" class="select-input icon-training" autocomplete="off" placeholder="Search trainings ...">
+        <div id="input-trainings" class="searchable-select input-icon">
+          <i class="icon icon-training"></i>
+          <input type="text" class="select-input" autocomplete="off" placeholder="Search trainings ...">
           <input type="hidden" name="training">
           <div class="select-options">
             <!-- JS -->
           </div>
         </div>
 
-        <input type="date" name="completion-date" required>
+        <div class="input-icon">
+          <i class="icon icon-date"></i>
+          <input type="date" name="completion-date" required>
+        </div>
 
         <button type="reset" class="btn yellow">Reset</button>
-        <button type="submit" class="btn primary">Add</button>
+        <button type="submit" class="btn blue">Add</button>
       </form>
 
       <h3 class="mb-md">Uploader Preview</h3>
@@ -70,32 +74,29 @@
     </section>
   </main>
 
-  <footer>
-    <div class="container grid col-300-fit gap-md items-start">
-      <section class="grid gap-sm">
+  <footer class="bg-middle border-top">
+    <div class="container grid col-300-fit gap-md">
+      <section class="d-flex-col gap-sm">
         <h3>Preview Data</h3>
-        <form id="preview-data" class="grid gap-sm">
-          <p class="mb-0">Review the entries above before downloading the CSV file for upload.</p>
-          <button type="button" class="btn primary" data-action="download-csv">Download CSV</button>
-          <button type="button" class="btn red" data-action="clear-data">Clear Data</button>
-        </form>
+        <p class="mb-0 flex-1">Review the entries above before downloading the CSV file for upload.</p>
+        <div class="d-flex gap-md">
+          <button type="button" class="btn red flex-grow-1" data-action="clear-data">Clear Data</button>
+          <button type="button" class="btn blue flex-grow-1" data-action="download-csv">Download CSV</button>
+        </div>
       </section>
 
-      <section class="grid gap-sm">
-        <h3>User Management</h3>
-        <p>Upload a single user, or bulk upload users.</p>
-        <button class="btn primary" commandfor="manage-users" command="show-modal">Settings</button>
+      <section class="d-flex-col gap-sm">
+        <h3>Data Management</h3>
+        <p class="mb-0 flex-1">Prepare reference data to generate bulk CSV uploads for user allocations and training modules.</p>
+        <div class="d-flex gap-md">
+          <button class="btn flex-grow-1" commandfor="manage-users" command="show-modal">Users</button>
+          <button class="btn flex-grow-1" commandfor="manage-trainings" command="show-modal">Trainings</button>
+        </div>
       </section>
 
-      <section class="grid gap-sm">
-        <h3>Training Management</h3>
-        <p>Upload a single training, or bulk upload trainings.</p>
-        <button class="btn primary" commandfor="manage-trainings" command="show-modal">Settings</button>
-      </section>
-
-      <section class="grid gap-sm">
+      <section class="d-flex-col gap-sm">
         <h3>Theme</h3>
-        <p>Select your preferred theme</p>
+        <p class="mb-0 flex-1">Select your preferred theme</p>
         <button type="button" class="btn" data-action="theme">Change Theme</button>
       </section>
     </div>
@@ -107,29 +108,35 @@
       <button class="btn" type="button" commandfor="manage-users" command="close">Close</button>
     </header>
 
-    <div class="modal-body grid gap-md mb-md">
+    <div class="modal-body grid gap-md">
       <form id="upload-user" class="grid gap-sm">
         <h3 class="mb-md">Add User</h3>
         <label>
-          <span>ID</span>
-          <input type="text" name="user-id" placeholder="Enter user ID ...">
+          <span>Username (E-mail)</span>
+          <input type="email" name="email" placeholder="Enter user's e-mail address ...">
         </label>
         <label>
           <span>Full Name</span>
           <input type="text" name="full-name" placeholder="Enter user full name ...">
         </label>
         <label>
-          <span>E-Mail</span>
-          <input type="email" name="email" placeholder="Enter user e-mail ...">
+          <span>Employee Code</span>
+          <input type="text" name="user-id" placeholder="Enter user ID ..." autofocus>
         </label>
-        <button type="submit" class="btn">Save</button>
+        <div class="d-flex content-end">
+          <button type="submit" class="btn green">Save</button>
+        </div>
       </form>
       <form id="upload-users" class="grid gap-sm">
         <h3 class="mb-md">Upload Users</h3>
-        <p>Please make sure that it is a csv, and the columns are in this order, id, name, e-mail.</p>
-        <p>This will replace all entries in the system.</p>
-        <input type="file" name="file" accept=".csv">
-        <button type="submit" class="btn primary">Upload</button>
+        <div>
+          <p>Please make sure that it is a csv, and the columns are in this order, id, name, e-mail.</p>
+          <p>This will replace all entries in the system.</p>
+        </div>
+        <div class="d-flex gap-md">
+          <input type="file" name="file" accept=".csv">
+          <button type="submit" class="btn green">Upload</button>
+        </div>
       </form>
     </div>
   </dialog>
@@ -139,24 +146,28 @@
       <h2>Manage Trainings</h2>
       <button class="btn" type="button" commandfor="manage-trainings" command="close">Close</button>
     </div>
-    <div class="modal-body grid gap-md mb-md">
+    <div class="modal-body grid gap-md">
       <form id="upload-training" class="grid gap-sm">
         <h3 class="mb-md">Add Training</h3>
         <label>
           <span>Training Code</span>
-          <input type="text" name="training-code" placeholder="Enter training code ...">
+          <input type="text" name="training-code" placeholder="Enter training code ..." autofocus>
         </label>
         <label>
           <span>Training Name</span>
           <input type="text" name="training-name" placeholder="Enter training name ...">
         </label>
-        <button type="submit" class="btn">Save</button>
+        <div class="d-flex content-end">
+          <button type="submit" class="btn green">Save</button>
+        </div>
       </form>
       <form id="upload-trainings" class="grid gap-sm">
         <h3>Upload Trainings</h3>
-        <label>Please make sure that it is a csv, and the columns are in this order, code, name</label>
-        <input type="file" name="file" accept=".csv">
-        <button type="submit" class="btn primary">Upload</button>
+        <p>Please make sure that it is a csv, and the columns are in this order, code, name</p>
+        <div class="d-flex gap-md">
+          <input type="file" name="file" accept=".csv">
+          <button type="submit" class="btn green">Upload</button>
+        </div>
       </form>
     </div>
   </dialog>
