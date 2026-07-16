@@ -98,3 +98,21 @@ export function clearPreview(): void {
   if (!confirm("Are you sure you want to clear all preview data?")) return;
   localStorage.removeItem(KEYS.preview);
 }
+
+export function deleteUsers(element: HTMLElement): void {
+  localStorage.removeItem(KEYS.users);
+  const dialog = element.closest<HTMLDialogElement>("dialog");
+  if (dialog) {
+    dialog.close();
+  }
+  window.alert("Users deleted!");
+}
+
+export function deleteTrainings(element: HTMLElement): void {
+  localStorage.removeItem(KEYS.trainings);
+  const dialog = element.closest<HTMLDialogElement>("dialog");
+  if (dialog) {
+    dialog.close();
+  }
+  window.alert("Trainings deleted!");
+}

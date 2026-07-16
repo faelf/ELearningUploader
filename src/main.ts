@@ -24,6 +24,7 @@ function renderTable() {
 }
 
 function init(): void {
+  forms.updateFormState();
   theme.init();
   trainingsSelect = createSearchableSelect({
     container: "#input-trainings",
@@ -69,6 +70,16 @@ document.addEventListener("click", (event: MouseEvent): void => {
         data: storage.getRows(),
       });
       break;
+    case "delete-users":
+      storage.deleteUsers(action);
+      usersSelect?.updateData(storage.getUsers());
+      forms.updateFormState();
+      break;
+    case "delete-trainings":
+      storage.deleteTrainings(action);
+      trainingsSelect?.updateData(storage.getTrainings());
+      forms.updateFormState();
+      break;
   }
 });
 
@@ -94,10 +105,12 @@ document.addEventListener("submit", async (event: SubmitEvent) => {
     case "upload-training":
       forms.uploadTraining(form);
       trainingsSelect?.updateData(storage.getTrainings());
+      forms.updateFormState();
       break;
     case "upload-trainings":
       await forms.uploadTrainings(form);
       trainingsSelect?.updateData(storage.getTrainings());
+      forms.updateFormState();
       break;
   }
 });

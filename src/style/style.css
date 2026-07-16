@@ -3,17 +3,27 @@
   --bg-middle:        hsl(220 20% 90%);
   --bg-surface:       hsl(220 20% 85%);
   --border-color:     hsl(220 20% 60%);
-  --input-focus:      hsla(0 0% 0% / 0.1);
+  --input-focus:      hsla(215 100% 50% / 0.1);
   --text:             hsl(234 16% 35%);
   --heading:          hsl(231 19% 26%);
   --heading-accent:   hsl(231 19% 10%);
   --text-muted:       hsl(229 9% 43%);
-  --blue:             hsl(219 91% 54%);
-  --gray:             hsl(228 11% 65%);
-  --red:              hsl(347 87% 44%);
-  --yellow:           hsl(36 77% 49%);
-  --green:            hsl(158 80% 36%);
+  --blue:             hsl(215 100% 50%);
+  --red:              hsl(0 100% 45%);
+  --yellow:           hsl(40 100% 40%);
+  --green:            hsl(135 60% 40%);
+  --teal:             hsl(180 65% 40%);
   --text-on-colour:   hsl(220 23% 95%);
+  --bg-blue:          hsl(210 80% 65%);
+  --text-blue:        hsl(215 100% 20%);
+  --bg-red:           hsl(5 80% 68%);
+  --text-red:         hsl(5 100% 20%);
+  --bg-yellow:        hsl(42 85% 65%);
+  --text-yellow:      hsl(40 85% 10%);
+  --bg-green:         hsl(150 60% 60%);
+  --text-green:       hsl(150 60% 10%);
+  --bg-teal:          hsl(175 80% 68%);
+  --text-teal:        hsl(180 65% 10%);
   --page-max-width: 1550px;
   --border-radius: 0.5rem;
   --fs-sm: 0.8rem;
@@ -30,16 +40,22 @@
   --bg-middle:        hsl(220 20% 10%);
   --bg-surface:       hsl(220 20% 15%);
   --border-color:     hsl(215 13% 24%);
-  --input-focus:      hsla(0 0% 100% / 0.1);
+  --input-focus:      hsla(215 100% 50% / 0.1);
   --text:             hsl(210 15% 80%);
   --heading:          hsl(210 15% 65%);
   --heading-accent:   hsl(210 15% 90%);
   --text-muted:       hsl(215 10% 59%);
   --text-on-colour:   hsl(220 18% 9%);
-  --blue:             hsl(215 65% 65%);
-  --red:              hsl(0 72% 67%);
-  --yellow:           hsl(42 93% 65%);
-  --green:            hsl(137 55% 55%);
+  --bg-blue:          hsl(218 38% 19%);
+  --text-blue:        hsl(214 100% 67%);
+  --bg-red:           hsl(356 42% 19%);
+  --text-red:         hsl(355 100% 64%);
+  --bg-yellow:        hsl(33 42% 18%);
+  --text-yellow:      hsl(36 100% 61%);
+  --bg-green:         hsl(138 41% 20%);
+  --text-green:       hsl(136 85% 45%);
+  --bg-teal:          hsl(181 42% 22%);
+  --text-teal:        hsl(182 68% 53%);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -50,6 +66,24 @@ html, body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: var(--bg-middle);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-middle);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-color);
 }
 
 body {
@@ -90,7 +124,7 @@ body {
 }
 
 .preview-form > :nth-child(n+3) {
-  flex-basis: 150px;
+  flex-basis: 170px;
 }
 
 /*
@@ -131,15 +165,14 @@ p { margin: 0; margin-block-end: var(--spacing-sm); line-height: 1.4; color: var
   padding: var(--spacing-sm) var(--spacing-md);
 }
 
-.btn:not(:disabled):active {
+.btn:active {
   transform: scale(0.975);
 }
 
-.btn:not(:disabled):hover {
-  color: var(--text-on-colour);
+.btn:hover {
+  color: var(--text-blue);
   border: 1px solid var(--blue);
-  background: var(--blue);
-  filter: none;
+  background: var(--bg-blue);
 }
 
 .btn-sm {
@@ -148,40 +181,50 @@ p { margin: 0; margin-block-end: var(--spacing-sm); line-height: 1.4; color: var
   font-size: var(--fs-sm);
 }
 
-.btn.blue {
-  color: var(--text-on-colour);
+.blue {
+  color: var(--text-blue);
   border: 1px solid var(--blue);
-  background: var(--blue);
+  background: var(--bg-blue);
 }
 
-.btn:not(:disabled).blue:hover {
-  color: var(--text-on-colour);
-  background: color-mix(in hsl, var(--blue) 80%, #000);
+.blue:hover {
+  background: var(--bg-teal);
+  color: var(--text-teal);
+  border: 1px solid var(--teal);
 }
 
-.btn.green {
+.green {
+  color: var(--text-green);
+  border: 1px solid var(--bg-green);
+  background: var(--bg-green);
+}
+
+.green:hover {
+  background: var(--green);
   color: var(--text-on-colour);
   border: 1px solid var(--green);
-  background: var(--green);
 }
 
-.btn:not(:disabled).green:hover {
-  color: var(--text-on-colour);
-  background: color-mix(in hsl, var(--green) 80%, #000);
-}
-
-.btn-sm.red:not(:disabled):hover, .btn.red:not(:disabled):hover {
-  color: var(--text-on-colour);
+.red {
+  color: var(--red);
   border: 1px solid var(--red);
-  background: var(--red);
-  filter: none;
 }
 
-.btn-sm.yellow:not(:disabled):hover, .btn.yellow:not(:disabled):hover {
-  color: var(--text-on-colour);
+.red:hover {
+  color: var(--text-red);
+  border: 1px solid var(--red);
+  background: var(--bg-red);
+}
+
+.yellow {
+  color: var(--yellow);
   border: 1px solid var(--yellow);
-  background: var(--yellow);
-  filter: none;
+}
+
+.yellow:hover {
+  color: var(--text-yellow);
+  border: 1px solid var(--yellow);
+  background: var(--bg-yellow);
 }
 
 /*
@@ -230,24 +273,18 @@ input:focus-visible, button:focus-visible {
   box-shadow: 0px 0px 0px 3px var(--input-focus);
 }
 
-input:disabled, button:disabled {
-  background: var(--gray) !important;
-  border: 1px solid transparent !important;
-  opacity: 0.6;
-  cursor: not-allowed;
-  transition: none !important;
-}
-
-input::placeholder,
-input[type="date"]::-webkit-datetime-edit-text,
-input[type="date"]::-webkit-datetime-edit-month-field,
-input[type="date"]::-webkit-datetime-edit-day-field,
-input[type="date"]::-webkit-datetime-edit-year-field {
+input:disabled,
+button:disabled, button:disabled:hover {
+  background: hsla(0 0% 50% / 0.2);
   color: var(--text-muted);
+  border: 1px solid var(--border-color);
+  opacity: 0.5;
+  cursor: not-allowed;
+  transition: none;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
-  display: none;
+input::placeholder {
+  color: var(--text);
 }
 
 input::selection {
@@ -265,6 +302,27 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+::-webkit-datetime-edit {
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+::-webkit-datetime-edit-fields-wrapper {
+  display: flex;
+  align-items: center;
+  width: auto;
+}
+
+::-webkit-datetime-edit-month-field,
+::-webkit-datetime-edit-day-field,
+::-webkit-datetime-edit-year-field {
+  padding-inline: 0.1rem;
+}
+
+::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
 input[type="file"] {
   padding: 0;
   cursor: pointer;
@@ -279,6 +337,7 @@ input[type="file"]::file-selector-button {
   background: var(--bg-surface);
   color: var(--text);
   border: none;
+  border-inline-end: 1px solid var(--border-color);
   font-family: inherit;
   font-size: var(--fs-md);
   font-weight: 500;
@@ -387,14 +446,48 @@ tr:hover { background: var(--bg-body); }
   ---------------------------------------------------
 */
 dialog {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   background: var(--bg-middle);
-  border-radius: 1rem;
+  border-radius: 1.5rem;
   border: 1px solid var(--border-color);
   padding: 0;
+  width: 500px;
+  max-width: 90vw;
+  opacity: 0;
+  scale: 0.8;
+  transition:
+    opacity 200ms ease,
+    scale 200ms ease,
+    display 200ms allow-discrete,
+    overlay 200ms allow-discrete;
+}
+
+dialog[open] {
+  opacity: 1;
+  scale: 1;
+  @starting-style {
+    opacity: 0;
+    scale: 0.8;
+  }
 }
 
 dialog::backdrop {
-  background: hsla(0 0% 0% / 0.6);
+  background: hsla(0 0% 0% / 0.8);
+  opacity: 0;
+  transition:
+    opacity 200ms ease,
+    display 200ms allow-discrete,
+    overlay 200ms allow-discrete;
+}
+
+dialog[open]::backdrop {
+  opacity: 1;
+  @starting-style {
+    opacity: 0;
+  }
 }
 
 .modal-header {
@@ -424,8 +517,10 @@ dialog::backdrop {
 .mb-none { margin-block-end: 0; }
 .mb-sm { margin-block-end: var(--spacing-sm); }
 .mb-md { margin-block-end: var(--spacing-md); }
+.mt-md { margin-block-start: var(--spacing-md); }
 .d-flex { display: flex; }
 .content-end { justify-content: end; }
+.space-between { justify-content: space-between; }
 .d-flex-col { display: flex; flex-direction: column; }
 .flex-grow-1 { flex: 1 1 0%; }
 .flex-1 { flex: 1; }
@@ -433,7 +528,11 @@ dialog::backdrop {
 .bg-middle { background: var(--bg-middle); }
 .border-top { border-top: 1px solid var(--border-color); }
 .border-bottom { border-bottom: 1px solid var(--border-color); }
-
+hr {
+  border: none;
+  border-top: 1px solid var(--border-color, #2a2a2a);
+  margin: 1.5rem 0;
+}
 
 /*
   Media Queries

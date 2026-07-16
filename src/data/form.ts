@@ -29,6 +29,8 @@ export function uploadUser(form: HTMLFormElement): void {
 
   storage.saveUser({ id, name, email });
 
+  updateFormState();
+
   form.reset();
 
   const dialog = form.closest<HTMLDialogElement>("dialog");
@@ -51,6 +53,8 @@ export async function uploadusers(form: HTMLFormElement): Promise<void> {
   const newUsers = await readUsersFromCsv(file);
 
   storage.saveUsers(newUsers);
+
+  updateFormState();
 
   form.reset();
 
@@ -80,6 +84,8 @@ export function uploadTraining(form: HTMLFormElement): void {
 
   storage.saveTraining({ code, name });
 
+  updateFormState();
+
   form.reset();
 
   const dialog = form.closest<HTMLDialogElement>("dialog");
@@ -103,6 +109,8 @@ export async function uploadTrainings(form: HTMLFormElement): Promise<void> {
 
   storage.saveTrainings(newTrainings);
 
+  updateFormState();
+
   form.reset();
 
   const dialog = form.closest<HTMLDialogElement>("dialog");
@@ -111,4 +119,26 @@ export async function uploadTrainings(form: HTMLFormElement): Promise<void> {
   }
 
   window.alert("Trainings uploaded!");
+}
+
+export function updateFormState(): void {
+  const hasUser = localStorage.getItem("learnspace-users") !== null;
+  const hasTraining = localStorage.getItem("learnspace-trainings") !== null;
+
+  const ready = hasUser && hasTraining;
+
+  const form = document.querySelector<HTMLFormElement>("#preview-form");
+  if (!form) return;
+
+  form
+    .querySelectorAll<HTMLInputElement | HTMLButtonElement>("input, button")
+    .forEach((element) => {
+      element.disabled = !ready;
+    });
+
+  form
+    .querySelectorAll<HTMLElement>(".searchable-select")
+    .forEach((element) => {
+      element.classList.toggle("disabled", !ready);
+    });
 }

@@ -36,13 +36,13 @@
     <section class="container">
       <h2 class="mb-md">Training Certification Tool</h2>
 
-      <p>Enter the employee ID, select the training, and set the completion date. Add entries to build a CSV for upload.</p>
+      <p>Enter the username, enter training, and set the completion date. Add entries to build a CSV for upload.</p>
 
       <form id="preview-form" class="preview-form mb-md">
 
         <div id="input-users" class="searchable-select input-icon">
           <i class="icon icon-user"></i>
-          <input type="text" class="select-input" autocomplete="off" required placeholder="Search user ...">
+          <input type="text" class="select-input" autocomplete="off" required placeholder="Search user by name ...">
           <input type="hidden" name="email">
           <div class="select-options">
             <!-- JS -->
@@ -51,7 +51,7 @@
 
         <div id="input-trainings" class="searchable-select input-icon">
           <i class="icon icon-training"></i>
-          <input type="text" class="select-input" autocomplete="off" placeholder="Search trainings ...">
+          <input type="text" class="select-input" autocomplete="off" placeholder="Search trainings by name ...">
           <input type="hidden" name="training">
           <div class="select-options">
             <!-- JS -->
@@ -75,7 +75,7 @@
   </main>
 
   <footer class="bg-middle border-top">
-    <div class="container grid col-300-fit gap-md">
+    <div class="container grid col-300-fit gap-md mt-md">
       <section class="d-flex-col gap-sm">
         <h3>Preview Data</h3>
         <p class="mb-0 flex-1">Review the entries above before downloading the CSV file for upload.</p>
@@ -108,7 +108,7 @@
       <button class="btn" type="button" commandfor="manage-users" command="close">Close</button>
     </header>
 
-    <div class="modal-body grid gap-md">
+    <div class="modal-body">
       <form id="upload-user" class="grid gap-sm">
         <h3 class="mb-md">Add User</h3>
         <label>
@@ -127,6 +127,7 @@
           <button type="submit" class="btn green">Save</button>
         </div>
       </form>
+      <hr>
       <form id="upload-users" class="grid gap-sm">
         <h3 class="mb-md">Upload Users</h3>
         <div>
@@ -138,6 +139,14 @@
           <button type="submit" class="btn green">Upload</button>
         </div>
       </form>
+      <hr>
+      <div class="grid gap-sm">
+        <h3 class="mb-md">Delete Users</h3>
+        <p>This will delete all users records, it cannot be undone.</p>
+        <div class="d-flex content-end">
+          <button type="button" class="btn red" data-action="delete-users">Delete</button>
+        </div>
+      </div>
     </div>
   </dialog>
 
@@ -146,7 +155,7 @@
       <h2>Manage Trainings</h2>
       <button class="btn" type="button" commandfor="manage-trainings" command="close">Close</button>
     </div>
-    <div class="modal-body grid gap-md">
+    <div class="modal-body">
       <form id="upload-training" class="grid gap-sm">
         <h3 class="mb-md">Add Training</h3>
         <label>
@@ -161,6 +170,7 @@
           <button type="submit" class="btn green">Save</button>
         </div>
       </form>
+      <hr>
       <form id="upload-trainings" class="grid gap-sm">
         <h3>Upload Trainings</h3>
         <p>Please make sure that it is a csv, and the columns are in this order, code, name</p>
@@ -169,6 +179,15 @@
           <button type="submit" class="btn green">Upload</button>
         </div>
       </form>
+      <hr>
+      <div class="grid gap-sm">
+        <h3 class="mb-md">Delete Trainings</h3>
+        <p>It will delete all trainings records, this action cannot be undone.</p>
+        <div class="d-flex content-end">
+          <button type="button" class="btn red" data-action="delete-trainings">Delete</button>
+        </div>
+      </div>
+
     </div>
   </dialog>
 </body>
