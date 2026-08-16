@@ -1,18 +1,15 @@
 services:
-  elearninguploader:
-    image: node:24-slim
+  vite-js:
+    build: .
     container_name: elearninguploader
     hostname: elearninguploader
-    user: "1000:1000"
-
-    working_dir: /app
-
     ports:
-      - "8004:5173"
-
-    volumes:
-      - .:/app
-
-    command: npm run dev -- --host 0.0.0.0
-
+      - "8004:80"
     restart: unless-stopped
+
+    networks:
+      - cloudflare
+
+networks:
+  cloudflare:
+    external: true
